@@ -1,0 +1,90 @@
+ // bot.on('callback_query', async (callbackQuery) => {
+//     const chatId = callbackQuery.message.chat.id;
+//     const data = callbackQuery.data;
+//     console.log(`Callback received: ${data}`);
+
+//     if (data.startsWith('location_')) {
+//         const location = data.split('_')[1];
+//         updateUser(chatId, 'location', location);
+//         updateUser(chatId, 'step', 'language');
+//         await bot.sendMessage(chatId, `Your location has been updated to: ${location}`);
+//         await bot.sendMessage(chatId, '🌍 What language do you speak?', {
+//             reply_markup: {
+//                 inline_keyboard: [
+//                     [{ text: 'Русский', callback_data: 'language_Russian' }],
+//                     [{ text: 'English', callback_data: 'language_English' }],
+//                     [{ text: 'Polski', callback_data: 'language_Polish' }]
+//                 ]
+//             }});
+
+//     } else if (data.startsWith('language_')) {
+//         const languageMap = {
+//             language_ru: 'ru',
+//             language_en: 'en',
+//             language_pl: 'pl'
+//         };
+
+//         const language = languageMap[data] || 'en';  // По умолчанию английский
+
+//         updateUser(chatId, 'language', language);
+//         updateUser(chatId, 'step', null);
+//         console.log(`Language updated in DB for ${chatId}: ${language}`);
+
+//         let message;
+//         if (language === 'ru') {
+//             message = '✅ Язык обновлен на: Русский';
+//         } else if (language === 'pl') {
+//             message = '✅ Zaktualizowano język na: Polski';
+//         } else {
+//             message = '✅ Language updated to: English';
+//         }
+
+//         bot.sendMessage(chatId, message);
+//     } else if (data === 'edit_info') {
+//         updateUser(chatId, 'step', 'name');
+//         await bot.sendMessage(chatId, 'Please provide your name:');
+
+//     } else if (data === 'model_prev' || data === 'model_next') {
+//         handleModelNavigation(bot, callbackQuery);
+
+//     } else if (data === 'choose_list') {
+//         handleChooseModel(bot, chatId);
+
+//     } else if (data === 'choose_random') {
+//         getRandomModels(bot, chatId);
+//         await pause(2400);
+//         bot.sendMessage(chatId, 'Choose a model selection method:', {
+//             reply_markup: {
+//                 inline_keyboard: [
+//                     [{ text: 'Model List', callback_data: 'choose_list' }],
+//                     [{ text: 'Random Selection', callback_data: 'choose_random' }],
+//                     [{ text: 'Filter Selection', callback_data: 'choose_filter' }],
+//                 ],
+//             },
+//         });
+
+//     } else if (data === 'choose_filter' || data === 'filter_completed') {
+//         sendUserFilterTemplate(bot, chatId);
+
+//     } else if (data === 'apply_filter') {
+//         getUserFilter(chatId, (err, filter) => {
+//             if (err || !filter || filter.height === '—') {
+//                 console.log(`Фильтр не найден для пользователя ${chatId}`);
+//                 bot.sendMessage(chatId, '❌ You have no saved filter. Please create one first.');
+//             } else {
+//                 console.log(`Фильтр найден, начинаем поиск моделей:`, filter);
+//                 findModelsByFilter(bot, chatId, filter);
+//             }
+//         });
+
+//     } else if (data === 'model_prev_filtered' || data === 'model_next_filtered') {
+//         handleFilteredModelNavigation(bot, callbackQuery);
+//     }else if (data === 'update_filter' || data === 'create_new_filter') {
+//         startModelFilter(bot, chatId);
+
+//     } else {
+//         processFilterSelection(bot, callbackQuery);
+//     }
+
+//     bot.answerCallbackQuery(callbackQuery.id);
+// });
